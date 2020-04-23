@@ -1,0 +1,151 @@
+\documentclass{article}
+
+% Die UTF-8 Kodierung ermöglicht Umlaute und Sonderzeichen.
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+% Wir laden und wählen Deutsch als Sprache (neue Rechtschreibung).
+% Dadurch werden z.B. Deutsche Trennungsregeln verwendet.
+\usepackage[ngerman]{babel}
+\selectlanguage{ngerman}
+
+% Wir wechseln zum dd.mm.yyyy Datumsformat.
+\usepackage[ngerman]{isodate}
+\date{\numdate\today}
+
+% Einige mathematische Werkzeuge.
+% 	- amsmath stellt essentielle mathematische Umgebungen wie z.B. equation.
+%	- amsfonts enthält übliche mathematische Typographien.
+%	- amssymb definiert viele mathematische Symbole.
+% Tatsächlich lädt amssymb bereits intern das Package amsfont, d.h. zweiteres
+% hätte hier nicht explizit geladen werden müssen.
+\usepackage{amsmath, amsfonts, amssymb}
+
+% Für kommutative Diagramme.
+\usepackage{tikz-cd}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+% Einige Tools für die Korrektur.
+\usepackage{geometry}
+\usepackage{marginnote}
+\usepackage{xcolor}
+\usepackage{pdfcomment}
+\definecolor{color_annotation}{RGB}{255,50,50}	% Korrekturfarbe.
+\newcommand{\highlight}[1]{\pdfmarkupcomment[markup = Highlight, color = yellow]{#1}~}
+\newcommand{\strike}[1]{\pdfmarkupcomment[markup = StrikeOut, color = color_annotation]{#1}~}
+\newcommand{\squiggle}[1]{\pdfmarkupcomment[markup = Squiggly, color = color_annotation]{#1}~}
+\newcommand{\uline}[1]{\pdfmarkupcomment[markup = Underline, color = color_annotation]{#1}~}
+\newcommand{\sidecomment}[1]{\marginnote{{\color{color_annotation}#1}}}
+\newcommand{\comment}[1]{{\color{color_annotation} #1}}
+
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\setlist[itemize]{noitemsep, topsep=0pt}
+\setlength\parindent{0pt}
+\titleformat{\subsection}[runin]
+{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[runin]
+{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+
+
+\title {Übungsblatt 1 \\ \large{Optimierung I}}
+\author{Ludwig Muggli \\ ludwig.muggli@outlook.de \\ Mtr. Nr. 1638691
+        %\and
+        %Erika Mustermann \\ erika.mustermann@web.de \\Mtr. Nr. 87654321
+        }
+
+\begin{document}
+
+% Wir setzen den Titel etwas höher an.
+\vspace*{-3cm}
+{\let\newpage\relax\maketitle}
+
+\subsection*{Aufgabe 1} Modelliere die gegebene Situation als ganzzahliges lineares Programm, wenn Alice und Bob den Gesamtnutzen maximieren wollen. Gib dazu - jeweils mit Erklärung - die verwendeten Variablen Restriktionen und die Zielfunktion an. \par \smallskip
+
+In dem im Rahmen von Aufgabe 4 erstellten Dokuments \textit{Ludwig\_Muggli\_Blatt-1\_Aufgabe-1\_Aufgabe-4.zpl} finden sich detaillierte Anmerkungen, die der Beantwortung dieser Frage genüge tun sollten.
+
+\subsection*{Aufgabe 2} Finden Sie ähnlich zum Beispiel aus dem Vorlesungsvideo jeweils ein Minimierungsproblem
+\begin{center}
+\begin{tabular}{ll}
+Minimiere & $f(x)$ \\
+u.d.N. & $x \in K \neq \emptyset$\\
+\end{tabular}
+\end{center}
+welches keine Optimallösung hat, wenn
+\begin{enumerate}[label=(\alph*)]
+\item $K$ Kompakt ist \par \smallskip
+Wähle hierzu $K = [0,1] \subset \mathbb{R}$ und $f: \mathbb{R} \to \mathbb{R}, \; x \mapsto \ln{x}$. Dann existieren keine optimalen Lösungen für das Problem \begin{center}
+\begin{tabular}{ll}
+Minimiere & $f(x)$ \\
+u.d.N. & $x \in K \neq \emptyset$\\
+\end{tabular}
+\end{center}
+denn für alle $x \in K$ existiert ein $\tilde{x} \in K$ mit $f(\tilde{x}) \leq f(x)$, da $\lim\limits_{x\to \infty}{f(x)} = - \infty$.
+\item $f$ stetig und $K$ abgeschlossen ist.\par \smallskip
+Wähle hierzu $K = [0, \infty) \subset \mathbb{R}$ und $f: \mathbb{R} \to \mathbb{R}, \; x \mapsto e^{-x}$. Sicherlich ist $K$ abgeschlossen, da das Komplement $K^C = (-\infty,0)$ offen ist.\newline
+Es existieren keine optimalen Lösungen für das Problem
+\begin{center}
+\begin{tabular}{ll}
+Minimiere & $f(x)$ \\
+u.d.N. & $x \in K \neq \emptyset$\\
+\end{tabular}
+\end{center}
+denn für alle $x \in K$ existiert ein $\tilde{x} \in K$ mit $f(\tilde{x}) \leq f(x)$, da $\lim\limits_{x \to \infty}{f(x)} = 0$ und $f(x) > 0$ f.a. $x \in K$.
+\end{enumerate}
+\subsection*{Aufgabe 3} Gegeben ist der folgende Zulässigkeitsbereich $X$:
+\begin{align*}
+x_1 &\geq 0\\
+x_2 &\geq 0\\
+x_2 &\leq 2\\
+(x_2-1)^2 &\leq x_1\\
+(x_2 -1)^2 &\geq x_1-2
+\end{align*}
+Die Funktion $f(x) = \frac{1}{(x_1+1)(x_2+1)}$ nimmt ihr Maximum auf einer konvexen Menge $K$ im ersten Quadranten an einem Extremalpunkt von $K$ an (dies muss nicht gezeigt werden). Nutze diesen Hinweis, um alle Punkte aus $X$ anzugeben, bei denen die Funktion $f$ auf $X$ ihr Maximum annimmt. \par \medskip
+
+Man sieht leicht ein, dass die Extremalpunkte von $X$ genau jene rot markierten sind:
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+axis lines = center,
+xlabel = $x_1$,
+ylabel = $x_2$,
+xmin = -0.5, xmax = 3.5,
+ymin = -0.5, ymax = 2.5,
+]
+\addplot[samples=50,red,thick,fill=lightgray,opacity=0.8,domain=0:2] ((x-1)^2,x);
+\draw (1,0)[fill=lightgray,opacity=0.8,draw=none] rectangle (2.99,2);
+\addplot[samples=50,thick,fill=white,domain=0:2] ((x-1)^2+2,x);
+\draw[thick,fill] (axis cs:1,2) -- (axis cs:3,2);
+\draw[thick] (axis cs:1,0) -- (axis cs:3,0);
+\node[label={center:{\Large$X$}},circle,mark=none] at (axis cs:1,1) {};
+\node[label={0:{$(0,1)$}},circle,fill,inner sep=2pt,red] at (axis cs:0,1) {};
+\node[label={90:{$(3,0)$}},circle,fill,inner sep=2pt,red] at (axis cs:3,0) {};
+\node[label={270:{$(1,2)$}},circle,fill,inner sep=2pt,red] at (axis cs:1,2) {};
+\node[label={270:{$(3,2)$}},circle,fill,inner sep=2pt,red] at (axis cs:3,2) {};
+\node[label={90:{$(1,0)$}},circle,fill,inner sep=2pt,red] at (axis cs:1,0) {};
+\end{axis};
+\end{tikzpicture}
+\end{center}
+Damit kommen nur die Punkte $(3,2)$ und $(3,0)$ sowie Punkte in
+$$\{(x_1,x_2) \in \mathbb{R}^n \mid (x_2-1)^2 = x_1, 0 \leq x_1, 0 \leq x_2 \leq 2\} = \{((x_2-1)^2,x_2) \in \mathbb{R}^n \mid 0 \leq x_2 \leq 2 \}$$
+als Maxima der Funktion $f$ auf $X$ in Frage. Da
+$$f(1,0) = \frac{1}{2} > \frac{1}{4} = f(3,0) > \frac{1}{12}=f(3,2)$$ scheiden $(3,2)$ und $(3,0)$ als mögliche Maxima der Funktion $f$ auf $X$ bereits aus. Es muss also von der Form $\{((x_2-1)^2,x_2) \in \mathbb{R}^n \mid 0 \leq x_2 \leq 2 \}$ sein.\par \smallskip
+Dazu betrachten wir die erste Ableitung von $f$ im Punkt $((x_2-1)^2,x_2)$:
+$$f'((x_2-1)^2,x_2) = \frac{x_2(3x_2-2)}{(x_2+1)^2(x_2^2-2x_2+2)^2}$$
+Diese ist $0$ gdw. $x_2= 0$ oder $x_2 = \frac{2}{3}$. Daher können sich nur noch in den Punkten $(1,0), \left (\frac{1}{9},\frac{2}{3} \right)$ sowie an den Randpunkten $(1,0),(1,2)$ globale Minima befinden. \par \smallskip
+Nun gilt
+$$f(1,2) = \frac{1}{8} < f(1,0) = \frac{1}{2} < f \left (\frac{1}{9},\frac{2}{3} \right)=\frac{27}{50}$$
+
+Damit nimmt die Funktion $f$ ihr Maximum auf $X$ im Punkt $\left (\frac{1}{9},\frac{2}{3} \right)$ an. \hfill $\square$
+
+\subsection*{Aufgabe 4} Verwende ZIMPL um mit Hilfe deiner Modellierung aus Aufgabe 1 eine Optimallösung des dortigen Maximierungsproblems zu finden. \par \smallskip
+
+Siehe hierzu Anlage \textit{Ludwig\_Muggli\_Blatt-1\_Aufgabe-1\_Aufgabe-4.zpl}.
+
+
+
+\end{document}
